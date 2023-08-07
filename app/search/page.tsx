@@ -1,13 +1,16 @@
+'use client'
+
 import { AnimeCard, Search } from "@/components"
 import { Anime } from "@/types"
-import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
+import { useSearchParams } from 'next/navigation'
 
-export default async function Home({ params }: any) {
+export default async function Home() {
+
+    let searchParams = useSearchParams()
+
+    const search = searchParams.get('q')
 
     let animes: Anime[] = []
-
-    let search = params.search
 
     let api = await fetch(`https://api.consumet.org/anime/enime/${search}?page=1`)
     let response = await api.json()

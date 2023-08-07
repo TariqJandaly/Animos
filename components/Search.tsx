@@ -12,7 +12,7 @@ const Search = () => {
 
     const handleEnter = (e: any) => {
         if(e.code == 'Enter') {
-            window.location.replace('http://' + window.location.host + '/' + searchInput)
+            window.location.replace('http://' + window.location.host + '/search?q=' + searchInput)
         }
     }
   
