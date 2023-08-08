@@ -1,6 +1,6 @@
 {
-  "name": "animos",
-  "version": "1.0.0",
+  "name": "anima",
+  "version": "1.5.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
