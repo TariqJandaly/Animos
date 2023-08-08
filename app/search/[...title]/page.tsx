@@ -5,70 +5,45 @@ import { useEffect, useState } from 'react'
 import { AnimeCard } from '@/components/'
 import Navbar from '@/components/Navbar'
 import type { Anime } from '@/types/Anime'
-import Link from 'next/link'
-import PageContorller from '@/components/PageContorller'
 
 const Anime = new ANIME.Enime()
 const Anilist = new META.Anilist()
 
 
-const getAnimes = async ({
-    pageSettings
-}: {
-    pageSettings: {
-        page: number
-    }
-}) => {
+const getAnimes = async ({ Search }: { Search: string }) => {
     let response: any
     
-    await Anilist.fetchRecentEpisodes('gogoanime', pageSettings?.page, 100).then((res) => {
+    await Anime.search(Search, 1, 100).then((res) => {
         response = res.results.filter((anime) => {
             return anime.type != "ONA"
         })
+
+        response = response.sort((a: any, b: any) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime())
     })
 
     let animes = response
 
-    
-
     return animes
 }
 
-const Animes = () => {
-
+const Animes = ({ params }: any) => {
     let [animes, setAnimes] = useState([])
-    let page = 1
 
     useEffect(() => {
         getAnimes({
-            pageSettings: {
-                page
-            }
+            Search: params.title
         }).then((data) => {
             setAnimes(data)
         })
     }, [])
 
-    const update = (p: number) => {
-
-        getAnimes({
-            pageSettings: {
-                page: p
-            }
-        }).then((data) => {
-            setAnimes(data)
-        })
-    }
-
 
     return (
         <>
             <Navbar />
-            <PageContorller isTop={true} page={page} />
             <div className='flex flex-wrap gap-10 justify-center'>
-                {animes.map((anime: Anime) => <AnimeCard isSearch={false} key={JSON.stringify(anime)} anime={anime}/>)}
+                {animes.map((anime: Anime) => <AnimeCard isSearch={true} key={JSON.stringify(anime)} anime={anime}/>)}
             </div>
-            <PageContorller isTop={false} page={page} />
         </>
     )
 }

@@ -1,6 +1,4 @@
-import AnimeCardNew from "@/components/AnimeCardNew"
-import AnimeCard from "@/components/AnimeCard"
-import Search from "@/components/Search"
-import MainPage from "@/components/MainPage"
+import AnimeCard from "./AnimeCard"
+import Search from "./Search"
 
-export { AnimeCard, Search, AnimeCardNew, MainPage }
+export { AnimeCard, Search }

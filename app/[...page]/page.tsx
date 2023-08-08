@@ -34,10 +34,10 @@ const getAnimes = async ({
     return animes
 }
 
-const Animes = () => {
+const Animes = ({ params }: any) => {
 
     let [animes, setAnimes] = useState([])
-    let page = 1
+    let page = params.page <= 0 ? 1 : parseInt(params.page)
 
     useEffect(() => {
         getAnimes({
