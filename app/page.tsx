@@ -65,6 +65,7 @@ const Animes = () => {
         <>
             <Navbar />
             <PageContorller isTop={true} page={page} />
+            <h1 className='text-white text-3xl mb-5 text-center'>Recently Added!</h1>
             <div className='flex flex-wrap gap-10 justify-center'>
                 {animes.map((anime: Anime) => <AnimeCard isSearch={false} key={JSON.stringify(anime)} anime={anime}/>)}
             </div>
