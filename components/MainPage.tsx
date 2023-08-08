@@ -20,7 +20,8 @@ const MainPage = () => {
         fetch(`https://api.consumet.org/anime/enime/${search}?page=${page}`).then(response => {
             return response.json()
             .then(data => {
-                setAnimes(data.results.filter((anime: any) => anime.type != "ONA"))
+                data = data.results.sort((animeA: any, animeB: any) => new Date(animeB.releaseDate).getTime() - new Date(animeA.releaseDate).getTime())
+                setAnimes(data.filter((anime: any) => anime.type != "ONA"))
             })
         })
     }
