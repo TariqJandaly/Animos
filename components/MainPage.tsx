@@ -47,11 +47,16 @@ const MainPage = () => {
 
     return (
         <>
-            {!isSearch && <ul className="flex flex-wrap gap-10 mt-10 justify-center">
-                {animes?.map((anime: any) => {
-                    return <AnimeCardNew key={JSON.stringify(anime, null, 4)} anime={anime} />
-                })}
-            </ul>}
+            {!isSearch &&    
+                <>
+                    <h1 className="text-white text-4xl text-center w-full md:text-left mt-5 mb-5">Today's new!</h1>
+                    <ul className="flex flex-wrap gap-10 mt-10 justify-center">
+                        {animes?.map((anime: any) => {
+                            return <AnimeCardNew key={JSON.stringify(anime, null, 4)} anime={anime} />
+                        })}
+                    </ul>
+                </>
+            }
 
             {isSearch && <ul className="flex flex-wrap gap-10 mt-10 justify-center">
                 {animes?.map((anime: any) => {
