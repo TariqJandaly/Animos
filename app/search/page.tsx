@@ -5,60 +5,47 @@ import { useEffect, useState } from 'react'
 import { AnimeCard } from '@/components/'
 import Navbar from '@/components/Navbar'
 import type { Anime } from '@/types/Anime'
-import Link from 'next/link'
-import PageContorller from '@/components/PageContorller'
 
 const Anime = new ANIME.Enime()
 const Anilist = new META.Anilist()
 
 
-const getAnimes = async ({
-    pageSettings
-}: {
-    pageSettings: {
-        page: number
-    }
-}) => {
+const getAnimes = async ({ Search }: { Search: string }) => {
     let response: any
     
-    await Anilist.fetchRecentEpisodes('gogoanime', pageSettings?.page, 100).then((res) => {
+    await Anime.search(Search, 1, 100).then((res) => {
         response = res.results.filter((anime) => {
             return anime.type != "ONA"
         })
+
+        // response = response.sort((a: any, b: any) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime())
     })
 
     let animes = response
 
-    
-
     return animes
 }
 
-const Animes = ({ params }: any) => {
-
+const Animes = ({ searchParams }: any) => {
     let [animes, setAnimes] = useState([])
-    let page = params.page <= 0 ? 1 : parseInt(params.page)
+
+    let search = typeof searchParams?.q == 'string' ? searchParams?.q : 'one piece'
 
     useEffect(() => {
         getAnimes({
-            pageSettings: {
-                page
-            }
+            Search: search
         }).then((data) => {
             setAnimes(data)
         })
-    }, [])
+    }, [search])
 
 
     return (
         <>
             <Navbar />
-            <PageContorller isTop={true} page={page} />
-            <h1 className='text-white text-3xl mb-5 text-center'>Recently Added!</h1>
             <div className='flex flex-wrap gap-10 justify-center'>
-                {animes?.map((anime: Anime) => <AnimeCard isSearch={false} key={JSON.stringify(anime)} anime={anime}/>)}
+                {animes.map((anime: Anime) => <AnimeCard isSearch={true} key={JSON.stringify(anime)} anime={anime}/>)}
             </div>
-            <PageContorller isTop={false} page={page} />
         </>
     )
 }

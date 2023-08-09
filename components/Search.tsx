@@ -10,10 +10,14 @@ const Search = () => {
         setSearch(e.target.value)
     }
 
+    const handleClick = () => {
+        setSearch('')
+    }
+
     return (
         <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-10 mb-10">
             <input onChange={handleChange} className="bg-transparent outline-none text-white border border-violet-500 px-3 py-1 rounded" value={Search} type="text" placeholder="Anime name..." />
-            <Link className="text-white bg-violet-400 hover:bg-violet-600 py-1 px-3 rounded transition-colors" href={Search != '' ? `/search/${Search}` : '/'}>Search</Link>
+            <Link onClick={handleClick} className="text-white bg-violet-400 hover:bg-violet-600 py-1 px-3 rounded transition-colors" href={Search != '' ? `/search?q=${Search}` : '/'}>Search</Link>
         </div>
     )
 }

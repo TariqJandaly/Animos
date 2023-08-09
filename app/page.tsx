@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import { AnimeCard } from '@/components/'
 import Navbar from '@/components/Navbar'
 import type { Anime } from '@/types/Anime'
-import Link from 'next/link'
 import PageContorller from '@/components/PageContorller'
 
 const Anime = new ANIME.Enime()
@@ -34,10 +33,10 @@ const getAnimes = async ({
     return animes
 }
 
-const Animes = () => {
+const Animes = ({ searchParams }: any) => {
 
     let [animes, setAnimes] = useState([])
-    let page = 1
+    let page = typeof parseInt(searchParams?.p) == 'number' && parseInt(searchParams?.p) > 0 ? parseInt(searchParams?.p) : 1 
 
     useEffect(() => {
         getAnimes({
@@ -47,19 +46,7 @@ const Animes = () => {
         }).then((data) => {
             setAnimes(data)
         })
-    }, [])
-
-    const update = (p: number) => {
-
-        getAnimes({
-            pageSettings: {
-                page: p
-            }
-        }).then((data) => {
-            setAnimes(data)
-        })
-    }
-
+    }, [page])
 
     return (
         <>
