@@ -2,11 +2,12 @@
 
 import { ANIME, META } from '@consumet/extensions'
 import { useEffect, useState } from 'react'
-import { AnimeCard } from '@/components/'
+import AnimeCard from '@/components/AnimeCard'
 import Navbar from '@/components/Navbar'
 import type { Anime } from '@/types/Anime'
 import PageContorller from '@/components/PageContorller'
 import { useSearchParams } from 'next/navigation'
+import Trending from '@/components/Trending'
 
 const Anime = new ANIME.Enime()
 const Anilist = new META.Anilist()
@@ -54,6 +55,7 @@ const Animes = () => {
     return (
         <>
             <Navbar />
+            {/* <Trending /> */}
             <PageContorller isTop={true} page={page} />
             <h1 className='text-white text-3xl mb-5 text-center'>Recently Added!</h1>
             <div className='flex flex-wrap gap-10 justify-center'>

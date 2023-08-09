@@ -3,7 +3,7 @@ import Search from "./Search"
 
 const Navbar = () => {
   return (
-    <div className="md:flex block justify-between">
+    <div className="md:flex block justify-between px-10">
         <Link href={ '/' } className="text-white text-2xl md:mb-0 mb-3">Anima</Link>
         <Search />
         <div></div>

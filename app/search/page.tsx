@@ -2,7 +2,7 @@
 
 import { ANIME, META } from '@consumet/extensions'
 import { useEffect, useState } from 'react'
-import { AnimeCard } from '@/components/'
+import AnimeCard from '@/components/AnimeCard'
 import Navbar from '@/components/Navbar'
 import type { Anime } from '@/types/Anime'
 
