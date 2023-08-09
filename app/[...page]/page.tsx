@@ -49,17 +49,6 @@ const Animes = ({ params }: any) => {
         })
     }, [])
 
-    const update = (p: number) => {
-
-        getAnimes({
-            pageSettings: {
-                page: p
-            }
-        }).then((data) => {
-            setAnimes(data)
-        })
-    }
-
 
     return (
         <>
@@ -67,7 +56,7 @@ const Animes = ({ params }: any) => {
             <PageContorller isTop={true} page={page} />
             <h1 className='text-white text-3xl mb-5 text-center'>Recently Added!</h1>
             <div className='flex flex-wrap gap-10 justify-center'>
-                {animes.map((anime: Anime) => <AnimeCard isSearch={false} key={JSON.stringify(anime)} anime={anime}/>)}
+                {animes?.map((anime: Anime) => <AnimeCard isSearch={false} key={JSON.stringify(anime)} anime={anime}/>)}
             </div>
             <PageContorller isTop={false} page={page} />
         </>
