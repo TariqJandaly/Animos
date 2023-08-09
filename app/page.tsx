@@ -6,6 +6,7 @@ import { AnimeCard } from '@/components/'
 import Navbar from '@/components/Navbar'
 import type { Anime } from '@/types/Anime'
 import PageContorller from '@/components/PageContorller'
+import { useSearchParams } from 'next/navigation'
 
 const Anime = new ANIME.Enime()
 const Anilist = new META.Anilist()
@@ -15,7 +16,7 @@ const getAnimes = async ({
     pageSettings
 }: {
     pageSettings: {
-        page: number
+        page: any
     }
 }) => {
     let response: any
@@ -31,15 +32,19 @@ const getAnimes = async ({
     return animes
 }
 
-const Animes = ({ searchParams }: { searchParams: { p: string } }) => {
+const Animes = () => {
 
     let [animes, setAnimes] = useState([])
-    let page = searchParams?.p != null && parseInt(searchParams?.p) > 0 ? parseInt(searchParams?.p) : 1 
+    let searchParams = useSearchParams()
+
+    let page: number | string | null = searchParams.get('p')
+
+    page = page ? parseInt(page) : 1
 
     useEffect(() => {
         getAnimes({
             pageSettings: {
-                page
+                page: page
             }
         }).then((data) => {
             setAnimes(data)

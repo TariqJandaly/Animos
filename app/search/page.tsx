@@ -6,6 +6,8 @@ import { AnimeCard } from '@/components/'
 import Navbar from '@/components/Navbar'
 import type { Anime } from '@/types/Anime'
 
+import { useSearchParams } from 'next/navigation'
+
 const Anime = new ANIME.Enime()
 const Anilist = new META.Anilist()
 
@@ -26,14 +28,16 @@ const getAnimes = async ({ Search }: { Search: string }) => {
     return animes
 }
 
-const Animes = ({ searchParams }: { searchParams: { q: string } }) => {
+const Animes = () => {
     let [animes, setAnimes] = useState([])
 
-    let search = searchParams?.q != null ? searchParams?.q : 'one piece'
+    let searchParams = useSearchParams()
+
+    let search = searchParams.get('q')
 
     useEffect(() => {
         getAnimes({
-            Search: search
+            Search: search ? search : 'one piece'
         }).then((data) => {
             setAnimes(data)
         })
