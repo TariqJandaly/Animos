@@ -35,7 +35,7 @@ const getAnimes = async ({
 
 const Animes = () => {
 
-    let [animes, setAnimes] = useState([])
+    let [animes, setAnimes] = useState<[] | null>(null)
     let searchParams = useSearchParams()
 
     let page: number | string | null = searchParams.get('p')
@@ -58,9 +58,14 @@ const Animes = () => {
             {/* <Trending /> */}
             <PageContorller isTop={true} page={page} />
             <h1 className='text-white text-3xl mb-5 text-center'>Recently Added!</h1>
-            <div className='flex flex-wrap gap-10 justify-center'>
-                {animes.map((anime: Anime) => <AnimeCard isSearch={false} key={JSON.stringify(anime)} anime={anime}/>)}
-            </div>
+            {animes ?
+                <div className='flex flex-wrap gap-10 justify-center'>
+                    {animes.map((anime: Anime) => <AnimeCard isSearch={false} key={JSON.stringify(anime)} anime={anime}/>)}
+                </div> :
+                <div>
+                    <h1 className='text-center text-2xl text-slate-600'>Loading...</h1>
+                </div>
+            }
             <PageContorller isTop={false} page={page} />
         </>
     )
