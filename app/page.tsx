@@ -28,15 +28,13 @@ const getAnimes = async ({
 
     let animes = response
 
-    
-
     return animes
 }
 
 const Animes = ({ searchParams }: any) => {
 
     let [animes, setAnimes] = useState([])
-    let page = typeof parseInt(searchParams?.p) == 'number' && parseInt(searchParams?.p) > 0 ? parseInt(searchParams?.p) : 1 
+    let page = searchParams?.p != null && parseInt(searchParams?.p) > 0 ? parseInt(searchParams?.p) : 1 
 
     useEffect(() => {
         getAnimes({

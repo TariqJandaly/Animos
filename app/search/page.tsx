@@ -29,7 +29,7 @@ const getAnimes = async ({ Search }: { Search: string }) => {
 const Animes = ({ searchParams }: any) => {
     let [animes, setAnimes] = useState([])
 
-    let search = typeof searchParams?.q == 'string' ? searchParams?.q : 'one piece'
+    let search = searchParams?.q != null ? searchParams?.q : 'one piece'
 
     useEffect(() => {
         getAnimes({
