@@ -26,11 +26,10 @@ const getAnimes = async ({ Search }: { Search: string }) => {
     return animes
 }
 
-const Animes = () => {
+const Animes = ({ searchParams }: { searchParams: { q: string } }) => {
     let [animes, setAnimes] = useState([])
 
-    // let search = searchParams?.q != null ? searchParams?.q : 'one piece'
-    let search = 'one piece'
+    let search = searchParams?.q != null ? searchParams?.q : 'one piece'
 
     useEffect(() => {
         getAnimes({
